@@ -1,0 +1,3 @@
+temp = loadpdb 1UBI.pdb
+savepdb temp 1UBI.amber6Protonated.pdb
+quit

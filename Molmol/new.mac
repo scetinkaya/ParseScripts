@@ -1,0 +1,6 @@
+ReadPdb /u/apaydin/molmol/startup/1h8c_REF.pdb
+
+CalcHbond 2.4 35 1 0 1 1 0
+
+save CalcHBond.txt
+

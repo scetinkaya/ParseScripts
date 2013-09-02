@@ -1,0 +1,323 @@
+#!/usr/bin/perl -w
+
+use strict;
+
+#usage: ./automatedExplorationOfResonanceAssignmentsAroundPDB.pl pdbPrefix
+
+#runs the scripts to run HD vs. NMA on a protein.
+
+#preconditions to run this script:
+#1- there should be templateFiles (answerkey.m,TOCSY.m, templateSHIFTX.m, templateModelData.m, myinput.m, NOES.txt, order.m) in the parent directory.
+#2- the pdb files should be in the present directory. They should be named as $pdbPrefix.7.8.bidirectional.pdb.
+
+#note: templateModelData is the same as the myinput.m. Apparently it works.
+
+#output: 
+#at the end of the run:
+#normalModeHD reasy files should be generated.
+
+#unless (@ARGV)
+#{
+#    die("usage: ./automatedExplorationOfResonanceAssignmentsAroundPDB.pl  pdbPrefix\n");
+#}
+
+#my $pdbPrefix       = shift;
+
+my $scriptDirPrefix = "Scripts";
+
+#&createDirectoryStructure;
+
+#&copyTemplateFiles;
+
+&modelDataFunctions;
+
+#&shiftsFunctions;
+
+#&shiftxFunctions;
+
+sub createDirectoryStructure
+{ 
+	`mkdir Pdb`;
+	`mkdir ModelDataGeneration`;
+	`mkdir ModelDataGeneration/ModelDataFiles`;
+	
+	`mkdir SHIFT__FileGeneration/`;
+	
+	`mkdir SHIFT__FileGeneration/SHIFTS`;
+	`mkdir SHIFT__FileGeneration/SHIFTS/Data`;
+	`mkdir SHIFT__FileGeneration/SHIFTS/Parsed`;
+	`mkdir SHIFT__FileGeneration/SHIFTS/Parsed/Temp`;
+	`mkdir SHIFT__FileGeneration/SHIFTS/Parsed/Adjusted`;
+	
+	`mkdir SHIFT__FileGeneration/SHIFTX`;
+	`mkdir SHIFT__FileGeneration/SHIFTX/Data`;
+	`mkdir SHIFT__FileGeneration/SHIFTX/Parsed`;
+	`mkdir SHIFT__FileGeneration/SHIFTX/Parsed/Temp`;
+	`mkdir SHIFT__FileGeneration/SHIFTX/Parsed/Adjusted`;
+	
+	`mkdir Scripts`;
+
+}
+
+sub copyTemplateFiles
+{
+	` cp ../templateSHIFTX.m    .`;
+	` cp ../answerkey.m         answerkey.m`;
+	` cp ../TOCSY.m             TOCSY.m`;
+	` cp ../templateModelData.m .`;
+	` cp ../myinput.m .`;
+	` cp ../NOES.txt .`;
+	` cp ../order.m .`;
+
+}
+
+sub modelDataFunctions
+{
+#    &generateModelData;
+#    &moveModelData;
+    &divideModelData;
+}
+
+sub shiftsFunctions
+{
+    &dividePdbFiles;
+    &runSHIFTS;
+    &moveSHIFTS_Data;
+    &parseSHIFTS;
+    &adjustSHIFTS;
+    &cleanUpSHIFTS_Data;
+}
+
+sub shiftxFunctions
+{
+    &runSHIFTX;
+    &moveSHIFTX_Data;
+    &renameSHIFTX_Result;
+    &parseSHIFTX;
+    &adjustSHIFTX;
+    &cleanUpSHIFTX_Data;
+}
+
+
+
+sub generateModelData
+{
+#    &parsePDB_Files;
+    
+    &runMatlabFileForModelGeneration;
+}
+
+
+sub parsePDB_Files
+{ 
+    my $modeIndex;
+    
+    my $pdbFilename;
+
+    my @pdbFileList;
+    
+    `mv *.pdb Pdb`;
+
+    chdir("Pdb");
+    @pdbFileList = `ls *.pdb`;
+    foreach $pdbFilename(@pdbFileList)
+    {
+	`parsePDB_File.pl $pdbFilename`;
+    }
+
+    chdir("..");
+}
+
+sub runMatlabFileForModelGeneration
+{
+    `nohup matlab -nojvm -nodisplay < /home/home4/apaydin/Mist/Matlab/AutomatedRuns/automatedModelDataGeneration.m`;
+}
+
+
+
+sub moveModelData
+{
+    `mv Pdb/*.all ModelDataGeneration/ModelDataFiles`;
+}
+
+sub divideModelData
+#also renames model coords.
+{
+    my $modeIndex;
+
+    my @modelDataFileList;
+
+    my $modelDataFile;
+
+    @modelDataFileList = `ls ModelDataGeneration/ModelDataFiles/*.all`;
+
+    foreach $modelDataFile(@modelDataFileList)
+    {
+	chomp ($modelDataFile);
+
+	if ($modelDataFile =~ /(\d+).parsedPDB.all/)
+	{
+	    `mv $modelDataFile ModelDataGeneration/ModelDataFiles/Mode$1.all`;
+	    `~/Mist/Scripts/ParseScripts/divideNormalModeAnalysisFile.pl ModelDataGeneration/ModelDataFiles/Mode$1.all 2`;
+	}
+    }
+}
+
+sub dividePdbFiles
+{
+    my $modeIndex;
+    chdir("Pdb");
+    my $pdbFilename;
+
+    my @pdbFileList;
+
+    @pdbFileList = `ls *.pdb`;
+    foreach $pdbFilename(@pdbFileList)
+    {
+	#`dividePDB_File.pl Pdb/$pdbPrefix.7.8.bidirectional.pdb`;
+	`dividePDB_File.pl $pdbFilename`;
+    }
+    chdir("..");
+}
+
+sub runSHIFTS
+{ 
+    chdir("Pdb");
+
+    my ($pdbFilenamePrefix);
+
+    my $pdbFilename;
+
+    my @pdbFileList;
+
+    @pdbFileList = `ls *.pdb`;
+    foreach $pdbFilename(@pdbFileList)
+    {
+	$pdbFilename =~ /(.*).pdb/;
+	$pdbFilenamePrefix = $1;
+
+	`shifts -qdb -noreslib $pdbFilenamePrefix`;
+	`shifts -noreslib '::H'  $pdbFilenamePrefix > $pdbFilenamePrefix.out2`;
+    }
+    
+    chdir("..");
+}
+
+sub moveSHIFTS_Data
+{
+    `mv Pdb/*.bmrb SHIFT__FileGeneration/SHIFTS`;
+    `mv Pdb/*.out1 SHIFT__FileGeneration/SHIFTS`;
+    `mv Pdb/*.out2 SHIFT__FileGeneration/SHIFTS`;
+    `mv Pdb/*.par1 SHIFT__FileGeneration/SHIFTS`;
+}
+
+sub parseSHIFTS
+{
+    my ($pdbFilenamePrefix);
+
+    chdir("SHIFT__FileGeneration/SHIFTS");
+
+    my @pdbFileList;
+
+    my $pdbFilename;
+
+    @pdbFileList = `ls ../../Pdb/*.pdb`;
+    foreach $pdbFilename(@pdbFileList)
+    {
+	$pdbFilename =~ /(.*).pdb/;
+	$pdbFilenamePrefix = $1;
+
+	`cat $pdbFilenamePrefix.out1 $pdbFilenamePrefix.out2 > $pdbFilenamePrefix.SHIFTS_Raw.m`;
+	`parseSHIFTS_File.pl $pdbFilenamePrefix.SHIFTS_Raw.m MySHIFTS.$pdbFilenamePrefix`;
+    }
+    chdir("../..");
+}
+
+sub adjustSHIFTS
+{ 
+    `nohup matlab -nojvm -nodisplay < /home/home4/apaydin/Mist/Matlab/AutomatedRuns/automatedSHIFTS_FileAdjustment.m`;
+}
+
+sub cleanUpSHIFTS_Data
+{
+    my $shiftsFilename     = $_[0];
+
+    chdir ("SHIFT__FileGeneration/SHIFTS");
+
+    `mv *.bmrb Data`;
+    `mv *.out1 Data`;
+    `mv *.out2 Data`;
+    `mv *.par1 Data`;
+    `mv *.adjusted Parsed/Adjusted`;
+    `mv MySHIFTS.* Parsed/Temp`;
+    `mv *SHIFTS_Raw.m Data`;
+
+    chdir ("../..");
+}
+
+sub runSHIFTX
+{
+   
+    my ($pdbFilenamePrefix);
+
+    my @pdbFileList;
+
+    my $pdbFilename;
+
+    @pdbFileList = `ls Pdb/*.pdb`;
+    foreach $pdbFilename(@pdbFileList)
+    {
+	$pdbFilename =~ /(.*).pdb/;
+	$pdbFilenamePrefix = $1;   
+	
+	`shiftx.linux.bin 1 Pdb/$pdbFilenamePrefix.pdb Pdb/MySHIFTX.$pdbFilenamePrefix.shiftx`;
+    }
+}
+
+sub moveSHIFTX_Data
+{
+
+    ` mv Pdb/*.shiftx SHIFT__FileGeneration/SHIFTX`;
+}
+
+sub renameSHIFTX_Result
+{
+    ` rename .shiftx '' SHIFT__FileGeneration/SHIFTX/*.shiftx`;
+}
+
+sub parseSHIFTX
+{
+    my ($pdbFilenamePrefix);
+
+    chdir("SHIFT__FileGeneration/SHIFTX");
+
+    my @shiftxFiles;
+
+    my $shiftxFile;
+
+    @shiftxFiles = `ls MySHIFTX.*`;
+    foreach $shiftxFile(@shiftxFiles){
+	`parseSHIFTX_File.pl $shiftxFile $shiftxFile.parsed`;
+    }
+}
+
+
+sub adjustSHIFTX
+{
+    `nohup matlab -nojvm -nodisplay < /home/home4/apaydin/Mist/Matlab/AutomatedRuns/automatedSHIFTX_FileAdjustment.m`;
+}
+
+sub cleanUpSHIFTX_Data
+{ 
+
+    chdir("SHIFT__FileGeneration/SHIFTX");
+
+    `mv *.parsed Parsed/Temp`;
+    `mv *.adjusted Parsed/Adjusted`;
+    `rename parsed.adjusted adjusted Parsed/Adjusted/*.adjusted`;
+    `mv MySHIFTX.* Data`;
+
+    chdir("../.."); 
+}
+
+

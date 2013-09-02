@@ -1,0 +1,17 @@
+~/Mist/Scripts/divideNormalModeAnalysisFile.pl Mode7.all 4
+~/Mist/Scripts/divideNormalModeAnalysisFile.pl Mode8.all 4
+~/Mist/Scripts/divideNormalModeAnalysisFile.pl Mode9.all 4
+~/Mist/Scripts/divideNormalModeAnalysisFile.pl Mode10.all 4
+~/Mist/Scripts/divideNormalModeAnalysisFile.pl Mode11.all 4
+~/Mist/Scripts/divideNormalModeAnalysisFile.pl Mode48.all 4
+~/Mist/Scripts/divideNormalModeAnalysisFile.pl Mode7.8.bimodal.all 4
+~/Mist/Scripts/divideNormalModeAnalysisFile.pl Mode1000.all 2
+~/Mist/Scripts/divideNormalModeAnalysisFile.pl  Mode200.all  2
+~/Mist/Scripts/divideNormalModeAnalysisFile.pl Mode400.all 2
+~/Mist/Scripts/divideNormalModeAnalysisFile.pl  Mode600.all 2
+~/Mist/Scripts/divideNormalModeAnalysisFile.pl   Mode800.all 2
+~/Mist/Scripts/divideNormalModeAnalysisFile.pl Mode100.all 2
+~/Mist/Scripts/divideNormalModeAnalysisFile.pl   Mode300.all 2
+~/Mist/Scripts/divideNormalModeAnalysisFile.pl   Mode500.all 2 
+~/Mist/Scripts/divideNormalModeAnalysisFile.pl  Mode700.all  2
+~/Mist/Scripts/divideNormalModeAnalysisFile.pl  Mode900.all 2

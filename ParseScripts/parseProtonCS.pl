@@ -1,0 +1,176 @@
+#!/usr/bin/perl -w
+
+#usage: ./parseProtonCS.pl filename 
+
+#I think this is for parsing proton chemical shifts as predicted by SHIFTX.
+
+$inputFile         = "protonChemicalShiftsPredictedBySHIFTX.txt";
+#$outputFile        = "TOCSY.hSRI";
+
+#print STDERR "check out $outputFile\n";
+#open (FOUT, ">$outputFile");
+
+
+open (FIN, $inputFile) || 
+    die ("couldn't open $inputFile (should be the bmrb file)");
+
+
+while ($line = <FIN>)
+{
+    &parseLine ($line);
+}
+
+# the line contains the coordinate info, which will be printed.
+sub parseLine 
+{
+    my $line           = shift;
+
+    if ($line =~ /\s+(\d+)\s+\S\s+(\-*\d+\.\d+)\s+(\-*\d+\.\d+)\s+(\-*\d+\.\d+)\s+(\-*\d+\.\d+)\s+(\-*\d+\.\d+)\s+(\-*\d+\.\d+)\s+(\-*\d+\.\d+)\s+(\-*\d+\.\d+)\s+(\-*\d+\.\d+)\s+(\-*\d+\.\d+)\s+(\-*\d+\.\d+)\s+(\-*\d+\.\d+)\s+(\-*\d+\.\d+)\s+(\-*\d+\.\d+)\s+(\-*\d+\.\d+)\s+(\-*\d+\.\d+)\s+(\-*\d+\.\d+)\s+(\-*\d+\.\d+)\s+(\-*\d+\.\d+)\s+(\-*\d+\.\d+)\s+(\-*\d+\.\d+)\s+(\-*\d+\.\d+)\s+(\-*\d+\.\d+)/)
+    {
+	$aaNumber = $1;
+	
+	$chemicalShift = $2;
+	if ($chemicalShift ne "0.00")
+	{
+	    printf STDOUT "$chemicalShift $chemicalShift 100 $aaNumber\n";
+	}
+
+	$chemicalShift = $3;
+	if ($chemicalShift ne "0.00")
+	{
+	    printf STDOUT "$chemicalShift $chemicalShift 100 $aaNumber\n";
+	}
+
+	$chemicalShift = $4;
+	if ($chemicalShift ne "0.00")
+	{
+	    printf STDOUT "$chemicalShift $chemicalShift 100 $aaNumber\n";
+	}
+	
+	$chemicalShift = $5;
+	if ($chemicalShift ne "0.00")
+	{
+	    printf STDOUT "$chemicalShift $chemicalShift 100 $aaNumber\n";
+	}
+
+	$chemicalShift = $6;
+	if ($chemicalShift ne "0.00")
+	{
+	    printf STDOUT "$chemicalShift $chemicalShift 100 $aaNumber\n";
+	}
+
+	$chemicalShift = $7;
+	if ($chemicalShift ne "0.00")
+	{
+	    printf STDOUT "$chemicalShift $chemicalShift 100 $aaNumber\n";
+	}
+
+	$chemicalShift = $8;
+	if ($chemicalShift ne "0.00")
+	{
+	    printf STDOUT "$chemicalShift $chemicalShift 100 $aaNumber\n";
+	}
+
+	$chemicalShift = $9;
+	if ($chemicalShift ne "0.00")
+	{
+	    printf STDOUT "$chemicalShift $chemicalShift 100 $aaNumber\n";
+	}
+
+	$chemicalShift = $10 ;
+	if ($chemicalShift ne "0.00")
+	{
+	    printf STDOUT "$chemicalShift $chemicalShift 100 $aaNumber\n";
+	}
+
+	$chemicalShift = $11;
+	if ($chemicalShift ne "0.00")
+	{
+	    printf STDOUT "$chemicalShift $chemicalShift 100 $aaNumber\n";
+	}
+
+	$chemicalShift = $12;
+	if ($chemicalShift ne "0.00")
+	{
+	    printf STDOUT "$chemicalShift $chemicalShift 100 $aaNumber\n";
+	}
+
+	$chemicalShift = $13;
+	if ($chemicalShift ne "0.00")
+	{
+	    printf STDOUT "$chemicalShift $chemicalShift 100 $aaNumber\n";
+	}
+
+	$chemicalShift = $14;
+	if ($chemicalShift ne "0.00")
+	{
+	    printf STDOUT "$chemicalShift $chemicalShift 100 $aaNumber\n";
+	}
+
+	$chemicalShift = $15;
+	if ($chemicalShift ne "0.00")
+	{
+	    printf STDOUT "$chemicalShift $chemicalShift 100 $aaNumber\n";
+	}
+
+	$chemicalShift = $16;
+	if ($chemicalShift ne "0.00")
+	{
+	    printf STDOUT "$chemicalShift $chemicalShift 100 $aaNumber\n";
+	}
+
+	$chemicalShift = $17;
+	if ($chemicalShift ne "0.00")
+	{
+	    printf STDOUT "$chemicalShift $chemicalShift 100 $aaNumber\n";
+	}
+
+	$chemicalShift = $18;
+	if ($chemicalShift ne "0.00")
+	{
+	    printf STDOUT "$chemicalShift $chemicalShift 100 $aaNumber\n";
+	}
+
+	$chemicalShift = $19;
+	if ($chemicalShift ne "0.00")
+	{
+	    printf STDOUT "$chemicalShift $chemicalShift 100 $aaNumber\n";
+	}
+
+	$chemicalShift = $20;
+	if ($chemicalShift ne "0.00")
+	{
+	    printf STDOUT "$chemicalShift $chemicalShift 100 $aaNumber\n";
+	}
+
+	$chemicalShift = $21;
+	if ($chemicalShift ne "0.00")
+	{
+	    printf STDOUT "$chemicalShift $chemicalShift 100 $aaNumber\n";
+	}
+
+	$chemicalShift = $22;
+	if ($chemicalShift ne "0.00")
+	{
+	    printf STDOUT "$chemicalShift $chemicalShift 100 $aaNumber\n";
+	}
+
+	$chemicalShift = $23;
+	if ($chemicalShift ne "0.00")
+	{
+	    printf STDOUT "$chemicalShift $chemicalShift 100 $aaNumber\n";
+	}
+
+	$chemicalShift = $24;
+	if ($chemicalShift ne "0.00")
+	{
+	    printf STDOUT "$chemicalShift $chemicalShift 100 $aaNumber\n";
+	}
+
+
+    }
+    else
+    {
+	print STDERR "line = $line does not match the format.\n";
+    }
+}

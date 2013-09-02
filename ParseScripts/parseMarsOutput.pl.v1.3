@@ -1,0 +1,30 @@
+#!/usr/bin/perl -w
+
+use strict;
+
+my ($modeIndex, $modelIndex,$line);
+
+
+for ($modelIndex = 100; $modelIndex <= 1000; $modelIndex = $modelIndex + 100)
+    {
+	my $outDirName = "Results$modelIndex";
+	chdir($outDirName);
+
+	`grep '(H)' assignment_AA.out  > parsedMarsOutput.txt`;
+	open (FIN,'parsedMarsOutput.txt');
+	open (FOUT, ">confidentlyAssignedResidues.txt");
+
+	while ($line = <FIN>)
+	{
+	    if ($line =~ /\S\S\S\_(\d+)\s+(\d+) \(H\)/)
+	    {
+		print FOUT "$1 $2\n";
+	    }
+	}
+
+	close(FIN);
+	close(FOUT);
+	chdir('..');
+}
+
+

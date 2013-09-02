@@ -1,0 +1,21 @@
+#!/usr/bin/perl -w
+
+use strict;
+
+my ($modeIndex, $modelIndex);
+
+#$modeIndex = 7; $modelIndex = 6; 
+for ($modeIndex = 7; $modeIndex <= 11; $modeIndex = $modeIndex + 1)
+{
+    for ($modelIndex = 1; $modelIndex <= 11; $modelIndex = $modelIndex + 1)
+    {
+	my $fileIndex = "/usr/project/dlab/Users/apaydin/Mist/MarsNMA/1AAR/Pdb/Unidirectional/1AAR.$modeIndex.model$modelIndex.pdb";
+	`rm -f 1AAR.pdb`;
+	`ln -s $fileIndex 1AAR.pdb`;
+	`/usr/project/dlab/data_from_dartmouth/mist/apaydin/Tools/Mars/mars-1.1.3_linux/bin/runmars mars.inp`;
+	my $outDirName = "Results$modeIndex\_$modelIndex";
+	`mkdir $outDirName`;
+	`mv *.out $outDirName`;
+    }
+}
+

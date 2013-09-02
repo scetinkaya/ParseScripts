@@ -1,0 +1,20 @@
+mkdir Mode7
+mkdir Mode8
+mkdir Mode9
+mkdir Mode10
+mkdir Mode11
+mkdir Mode38
+mv Mode7.coords* Mode7 
+mv Mode8.coords* Mode8 
+mv Mode9.coords* Mode9 
+mv Mode10.coords* Mode10 
+mv Mode11.coords* Mode11 
+mv Mode38.coords* Mode38
+mv Mode7.8.*.coords* Mode7.8
+mv Mode7.all Mode7
+mv Mode8.all Mode8
+mv Mode9.all Mode9
+mv Mode10.all Mode10
+mv Mode11.all Mode11
+mv Mode7.8.bimodal.all Mode7.8
+mv Mode38.all Mode38

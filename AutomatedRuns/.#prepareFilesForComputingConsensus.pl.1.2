@@ -1,0 +1,48 @@
+#!/usr/local/bin/perl -w
+#
+
+@dirArray = ("ModifyingOnlyNOEs","ModifyingOnlyRDCs","ModifyingOnlySHIFTS","ModifyingOnlySHIFTX", "ModifyingOnlyRDC1","ModifyingOnlyRDC2");
+
+
+for ($dirIndex = 0; $dirIndex < 6; $dirIndex = $dirIndex + 1)
+{
+    $dirString = $dirArray[$dirIndex];
+
+    if (-e $dirString)
+    {
+    }
+    else
+    {
+	mkdir ($dirString);
+    }
+
+    chdir ($dirString) or die "can't cd to $dirString"; ;
+
+    `ln -s ~/BlameAssignment/ModifyingOnlyNOEs/ModelDataGeneration/ .`;
+    `ln -s ~/BlameAssignment/ModifyingOnlyNOEs/SHIFT__FileGeneration/ .`;
+    `cp ~/BlameAssignment/ModifyingOnlyNOEs/*.m .`;
+    `cp ~/BlameAssignment/ModifyingOnlyNOEs/*.txt .`;
+
+    mkdir ("Assignments");
+    
+    mkdir ("Results");
+
+#    `mv assignments* Assignments`;
+
+#    `mv Mode*_HD_vs_NMA.txt Results/`;
+
+#    chdir ("Assignments");
+
+#    `rename txt txt.backup assignmentsForMode*`;
+
+#    `cp ../idealAssignments.txt .`;
+
+#    chdir ("../Results");
+
+#    `rename txt txt.backup *`;
+
+#    chdir ("../..");
+
+    chdir("..");
+}
+

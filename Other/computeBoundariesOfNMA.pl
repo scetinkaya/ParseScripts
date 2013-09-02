@@ -1,0 +1,103 @@
+#!/usr/bin/perl -w
+
+use strict;
+
+my $startIndex;
+my $modelIndex;
+my $scriptFilename;
+my $warning;
+my $modeIndex;
+
+
+
+#open (FOUT, ">validStructures.txt");
+#print FOUT "#modeIndex #startModelIndex #endModelIndex\n";
+
+for ($modeIndex = 7; $modeIndex <= 11; $modeIndex = $modeIndex + 1)
+{
+#    $startIndex = 1;
+    
+    for ($modelIndex = 6; $modelIndex >= 1; $modelIndex = $modelIndex - 1)
+    {
+	$scriptFilename = &createAmberScriptToReadAppropriateFile($modeIndex,$modelIndex);
+	$warning  = &runAmberScriptOnTheAppropriateFile($scriptFilename, $modeIndex, $modelIndex);
+	if ($warning)
+	{ 
+#	    $startIndex = $modelIndex + 1; 
+	  #  last;
+	}
+    }
+    
+
+
+#    if ($startIndex == 7)
+#    {
+#	print STDOUT "this is strange; there has to be no clash at the start conformation\n";
+#    }
+    
+#    my $endIndex = 11;
+    for ($modelIndex = 7; $modelIndex <= 11; $modelIndex = $modelIndex + 1)
+    {
+	$scriptFilename = &createAmberScriptToReadAppropriateFile($modeIndex,$modelIndex);
+	$warning  = &runAmberScriptOnTheAppropriateFile    ($scriptFilename, $modeIndex, $modelIndex);
+	if ($warning)
+	{ 
+	#    $endIndex = $modelIndex - 1; 
+	   # last;
+	}
+    }
+    
+#    print STDOUT "The ensemble has valid structures for mode# $modeIndex from model #$startIndex till model#$endIndex\n";
+
+#    print FOUT "$modeIndex $startIndex $endIndex\n";
+
+#    last; #temporary
+    
+}
+
+#close FOUT;
+
+
+sub createAmberScriptToReadAppropriateFile
+{
+    my $modeIndex        = shift;
+    my $modelIndex       = shift;
+    my $scriptFilename   = "AmberScripts/amberScriptForMode$modeIndex.Model$modelIndex";
+
+    open (FOUT_amberScript, ">$scriptFilename");
+    print FOUT_amberScript "source leaprc.ff03\n";
+
+    print FOUT_amberScript "ef1 = loadPdb Pdb/1EF1-NMA.$modeIndex.model$modelIndex.pdb\n";
+    print FOUT_amberScript "saveAmberParm ef1 prmtop.$modeIndex.$modelIndex prmcrd.$modeIndex.$modelIndex\n";
+    print FOUT_amberScript "quit\n";
+    
+    close FOUT_amberScript;
+    $scriptFilename;
+}
+
+sub runAmberScriptOnTheAppropriateFile
+{
+    my $scriptFilename = shift;
+    my $modeIndex      = shift;
+    my $modelIndex     = shift;
+
+    my $warning        = 0;
+
+    my $outputMessage =   `tleap -f $scriptFilename`;
+    
+    print STDOUT $outputMessage;
+
+    if ($outputMessage =~ /WARNING/)
+    {
+	print "There is a warning in this message for file $scriptFilename.\n";
+	$warning = 1;
+    }
+
+#    `sander -i min.in -o 1ef1.$modeIndex.$modelIndex.out -c prmcrd.$modeIndex.$modelIndex -r coords.$modeIndex.$modelIndex.xyz`;
+
+#    print "sander completed for mode $modeIndex model $modelIndex.\n";
+
+#    `ambpdb -p prmtop.$modeIndex.$modelIndex < prmcrd.$modeIndex.$modelIndex > coords.$modeIndex.$modelIndex.pdb`;
+
+    $warning;
+}

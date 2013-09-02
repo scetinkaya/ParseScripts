@@ -1,0 +1,21 @@
+#!/bin/csh
+
+#
+
+set noclobber
+
+if (! -e normalModeHD.m) then
+    ln -s ~/Mist/Matlab/AutomatedRuns/normalModeHD.m .
+endif
+
+#cd ~/WorkDir/3GB1/1HEZ/Bidirectional
+
+set p = 1;
+
+while ($p <= 176)
+    echo $p
+@   q = $p + 10;
+    echo $q
+    nohup matlab -nojvm -nodisplay -r "normalModeHD($p,$q)" >& normalModeHD_Output.$p.$q.txt &
+@   p = $p + 11;
+end

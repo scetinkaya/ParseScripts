@@ -1,0 +1,147 @@
+#!/usr/bin/perl -w
+
+#usage: ./parseSPARTA+_File.pl <inputFilename> <outputFilename> <OPTIONAL: debugFilename>
+
+# reads the input SPARTA+ file, parses it to read the 
+#N AND H SHIFTS to be written to the output file.
+
+#Note that this script currently only works for ubiquitin.
+
+
+$numParameters = @ARGV;
+if (($numParameters != 2) && ($numParameters != 3))
+{
+    die("usage:  ./parseSPARTA+_File.pl <inputFilename> <outputFilename> <OPTIONAL: debugFilename>\n");
+}
+
+$inputFilename         = shift;
+$outputFilename        = shift;
+
+if ($numParameters == 3)
+{
+    $debugFilename     = shift;
+    $writeDebugFile    = 1;
+    print STDERR "check out $debugFilename and $outputFilename\n";
+    open (FOUT_Debug, ">$debugFilename");
+}
+else
+{
+    $writeDebugFile = 0;
+    print STDERR "check out $outputFilename\n";
+}
+
+open (FOUT, ">$outputFilename");
+
+open (FIN, $inputFilename) || 
+    die ("couldn't open $inputFilename");
+
+
+@residueIDsN = ();
+@N_Shift     = ();
+@H_Shift     = ();
+@residueIDsH = ();
+
+
+while ($line = <FIN>)
+{
+    &parseLine ($line);
+}
+
+#assuming that the residueIDsH and residueIDsN arrays are in ascending order,
+#the routine below writes to the output file only those rows which have both 
+#a N and a H shift, and discards the other lines. 
+
+$indexN = 0; $indexH = 0; $numN = scalar(@residueIDsN); $numH = scalar(@residueIDsH);
+$total_N_Shift = 0;
+
+#compute average n shift first
+
+while ($indexN < $numN)
+{
+    $total_N_Shift = $total_N_Shift + $N_Shift[$indexN];
+    $indexN        = $indexN + 1;	
+}
+
+
+
+$average_N_Shift = $total_N_Shift / $indexN; 
+
+#print STDERR "AVERAGE N CHEMICAL SHIFT IS $average_N_Shift\n";
+
+$indexN = 0;
+
+while (($indexN < $numN) & ($indexH < $numH))
+{
+    if ($residueIDsN[$indexN] == $residueIDsH[$indexH])
+    {
+	if ($residueIDsN[$indexN] > 0)
+	{
+	    print FOUT "$residueIDsN[$indexN] $H_Shift[$indexH] $N_Shift[$indexN] \n" ;
+	}
+	$indexN = $indexN + 1;	$indexH = $indexH + 1;
+    }
+    elsif ($residueIDsN[$indexN] < $residueIDsH[$indexH])
+    {
+#missing H CS prediction. This may happen for prolines for instance.
+#in this case we skip the corresponding N cs as well.
+	$indexN = $indexN + 1;
+    }
+    else
+    {
+	#missing N CS prediction. Print average N cs instead
+#print aaindex h_shift average_n_shift.
+	
+	print FOUT "$residueIDsH[$indexH] $H_Shift[$indexH] $average_N_Shift \n" ;
+	$indexH = $indexH + 1;
+    }
+}
+
+$residueIndexCorrespondingToLastNitrogen = $residueIDsN[$numN-1];
+$residueIndexCorrespondingToLastHydrogen = $residueIDsH[$numH-1];
+
+if ($residueIndexCorrespondingToLastNitrogen == $residueIndexCorrespondingToLastHydrogen - 1)
+{
+    print STDERR "This line adds an entry to the parsed SPARTA file.\n";
+    print FOUT "$residueIndexCorrespondingToLastHydrogen $H_Shift[$indexH] $average_N_Shift \n" ;
+}
+
+
+# the line contains the coordinate info, which will be printed.
+sub parseLine 
+{
+    my $line           = shift;
+
+#    print STDERR "READ LINE = $line\n";
+
+    if ($line =~ /^\s+(\d+)\s+(\S)\s+(\S+)\s+(\-*\d+\.\d+)\s+(\-*\d+\.\d+)\s+(\-*\d+\.\d+)/)
+    {
+	$aaNumber              = $1;
+	$atomType              = $3;
+	$predShift             = $6;
+	
+	if ($atomType eq "N")
+	{
+	    if ($writeDebugFile)
+	    {
+		print FOUT_Debug "$aaNumber $atomType $predShift\n";
+	    }
+	    push (@residueIDsN, $aaNumber);
+	    push (@N_Shift, $predShift);
+	}
+	elsif ($atomType eq "HN")
+	{
+	    if ($writeDebugFile)
+	    {
+		print FOUT_Debug "$aaNumber $atomType $predShift\n";
+	    }
+	    push (@residueIDsH, $aaNumber);
+	    push (@H_Shift, $predShift);
+	}
+    }
+    else
+    {
+	#print STDERR "line = $line does not match the format.\n";
+    }
+}
+
+

@@ -1,0 +1,17 @@
+~/Mist/Scripts/parsePDBFile.pl Mode7.pdb 
+~/Mist/Scripts/parsePDBFile.pl Mode8.pdb 
+~/Mist/Scripts/parsePDBFile.pl Mode9.pdb 
+~/Mist/Scripts/parsePDBFile.pl Mode10.pdb
+~/Mist/Scripts/parsePDBFile.pl Mode11.pdb 
+~/Mist/Scripts/parsePDBFile.pl Mode38.pdb 
+~/Mist/Scripts/parsePDBFile.pl Mode7.8.bimodal.pdb 
+~/Mist/Scripts/parsePDBFile.pl 1UBI_H_sansWater_froda_000100.pdb  
+~/Mist/Scripts/parsePDBFile.pl 1UBI_H_sansWater_froda_000600.pdb
+~/Mist/Scripts/parsePDBFile.pl 1UBI_H_sansWater_froda_000200.pdb 
+~/Mist/Scripts/parsePDBFile.pl 1UBI_H_sansWater_froda_000700.pdb
+~/Mist/Scripts/parsePDBFile.pl 1UBI_H_sansWater_froda_000300.pdb 
+~/Mist/Scripts/parsePDBFile.pl 1UBI_H_sansWater_froda_000800.pdb
+~/Mist/Scripts/parsePDBFile.pl 1UBI_H_sansWater_froda_000400.pdb 
+~/Mist/Scripts/parsePDBFile.pl 1UBI_H_sansWater_froda_000900.pdb
+~/Mist/Scripts/parsePDBFile.pl 1UBI_H_sansWater_froda_000500.pdb 
+~/Mist/Scripts/parsePDBFile.pl 1UBI_H_sansWater_froda_001000.pdb

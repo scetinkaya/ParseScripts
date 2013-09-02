@@ -1,0 +1,25 @@
+mkdir SHIFT__FileGeneration/
+mkdir Mode7
+mkdir Mode8
+mkdir Mode9
+mkdir Mode10
+mkdir Mode11
+mkdir Mode38
+mv Mode7.* Mode7/ 
+mv Mode8.* Mode8/ 
+mv Mode9.* Mode9/ 
+mv Mode10.* Mode10/ 
+mv Mode11.* Mode11/ 
+mv Mode38.* Mode38/ 
+mv Mode7/ SHIFT__FileGeneration/
+mv Mode8/ SHIFT__FileGeneration/
+mv Mode9/ SHIFT__FileGeneration/
+mv Mode10/ SHIFT__FileGeneration/
+mv Mode11/ SHIFT__FileGeneration/
+mv Mode38/ SHIFT__FileGeneration/
+cd SHIFT__FileGeneration
+mv Mode7.* Mode7
+mv Mode8.* Mode8
+mv Mode9.* Mode9
+mv Mode10.* Mode10
+mv Mode11.* Mode11

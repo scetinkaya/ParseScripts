@@ -1,0 +1,201 @@
+cd Pdb;
+shifts -qdb -noreslib  Coords000100
+shifts -noreslib '::H' Coords000100 > Coords000100.out2
+shifts -qdb -noreslib  Coords000200
+shifts -noreslib '::H' Coords000200 > Coords000200.out2
+shifts -qdb -noreslib  Coords000300
+shifts -noreslib '::H' Coords000300 > Coords000300.out2
+shifts -qdb -noreslib  Coords000400
+shifts -noreslib '::H' Coords000400 > Coords000400.out2
+shifts -qdb -noreslib  Coords000500
+shifts -noreslib '::H' Coords000500 > Coords000500.out2
+shifts -qdb -noreslib  Coords000600
+shifts -noreslib '::H' Coords000600 > Coords000600.out2
+shifts -qdb -noreslib  Coords000700
+shifts -noreslib '::H' Coords000700 > Coords000700.out2
+shifts -qdb -noreslib  Coords000800
+shifts -noreslib '::H' Coords000800 > Coords000800.out2
+shifts -qdb -noreslib  Coords000900
+shifts -noreslib '::H' Coords000900 > Coords000900.out2
+shifts -qdb -noreslib  Coords001000
+shifts -noreslib '::H' Coords001000 > Coords001000.out2
+shifts -qdb -noreslib  Coords001100
+shifts -noreslib '::H' Coords001100 > Coords001100.out2
+shifts -qdb -noreslib  Coords001200
+shifts -noreslib '::H' Coords001200 > Coords001200.out2
+shifts -qdb -noreslib  Coords001300
+shifts -noreslib '::H' Coords001300 > Coords001300.out2
+shifts -qdb -noreslib  Coords001400
+shifts -noreslib '::H' Coords001400 > Coords001400.out2
+shifts -qdb -noreslib  Coords001500
+shifts -noreslib '::H' Coords001500 > Coords001500.out2
+shifts -qdb -noreslib  Coords001600
+shifts -noreslib '::H' Coords001600 > Coords001600.out2
+shifts -qdb -noreslib  Coords001700
+shifts -noreslib '::H' Coords001700 > Coords001700.out2
+shifts -qdb -noreslib  Coords001800
+shifts -noreslib '::H' Coords001800 > Coords001800.out2
+shifts -qdb -noreslib  Coords001900
+shifts -noreslib '::H' Coords001900 > Coords001900.out2
+shifts -qdb -noreslib  Coords002000
+shifts -noreslib '::H' Coords002000 > Coords002000.out2
+shifts -qdb -noreslib  Coords002100
+shifts -noreslib '::H' Coords002100 > Coords002100.out2
+shifts -qdb -noreslib  Coords002200
+shifts -noreslib '::H' Coords002200 > Coords002200.out2
+shifts -qdb -noreslib  Coords002300
+shifts -noreslib '::H' Coords002300 > Coords002300.out2
+shifts -qdb -noreslib  Coords002400
+shifts -noreslib '::H' Coords002400 > Coords002400.out2
+shifts -qdb -noreslib  Coords002500
+shifts -noreslib '::H' Coords002500 > Coords002500.out2
+shifts -qdb -noreslib  Coords002600
+shifts -noreslib '::H' Coords002600 > Coords002600.out2
+shifts -qdb -noreslib  Coords002700
+shifts -noreslib '::H' Coords002700 > Coords002700.out2
+shifts -qdb -noreslib  Coords002800
+shifts -noreslib '::H' Coords002800 > Coords002800.out2
+shifts -qdb -noreslib  Coords002900
+shifts -noreslib '::H' Coords002900 > Coords002900.out2
+shifts -qdb -noreslib  Coords003000
+shifts -noreslib '::H' Coords003000 > Coords003000.out2
+shifts -qdb -noreslib  Coords003100
+shifts -noreslib '::H' Coords003100 > Coords003100.out2
+shifts -qdb -noreslib  Coords003200
+shifts -noreslib '::H' Coords003200 > Coords003200.out2
+shifts -qdb -noreslib  Coords003300
+shifts -noreslib '::H' Coords003300 > Coords003300.out2
+shifts -qdb -noreslib  Coords003400
+shifts -noreslib '::H' Coords003400 > Coords003400.out2
+shifts -qdb -noreslib  Coords003500
+shifts -noreslib '::H' Coords003500 > Coords003500.out2
+shifts -qdb -noreslib  Coords003600
+shifts -noreslib '::H' Coords003600 > Coords003600.out2
+shifts -qdb -noreslib  Coords003700
+shifts -noreslib '::H' Coords003700 > Coords003700.out2
+shifts -qdb -noreslib  Coords003800
+shifts -noreslib '::H' Coords003800 > Coords003800.out2
+shifts -qdb -noreslib  Coords003900
+shifts -noreslib '::H' Coords003900 > Coords003900.out2
+shifts -qdb -noreslib  Coords004000
+shifts -noreslib '::H' Coords004000 > Coords004000.out2
+shifts -qdb -noreslib  Coords004100
+shifts -noreslib '::H' Coords004100 > Coords004100.out2
+shifts -qdb -noreslib  Coords004200
+shifts -noreslib '::H' Coords004200 > Coords004200.out2
+shifts -qdb -noreslib  Coords004300
+shifts -noreslib '::H' Coords004300 > Coords004300.out2
+shifts -qdb -noreslib  Coords004400
+shifts -noreslib '::H' Coords004400 > Coords004400.out2
+shifts -qdb -noreslib  Coords004500
+shifts -noreslib '::H' Coords004500 > Coords004500.out2
+shifts -qdb -noreslib  Coords004600
+shifts -noreslib '::H' Coords004600 > Coords004600.out2
+shifts -qdb -noreslib  Coords004700
+shifts -noreslib '::H' Coords004700 > Coords004700.out2
+shifts -qdb -noreslib  Coords004800
+shifts -noreslib '::H' Coords004800 > Coords004800.out2
+shifts -qdb -noreslib  Coords004900
+shifts -noreslib '::H' Coords004900 > Coords004900.out2
+shifts -qdb -noreslib  Coords005000
+shifts -noreslib '::H' Coords005000 > Coords005000.out2
+shifts -qdb -noreslib  Coords005100
+shifts -noreslib '::H' Coords005100 > Coords005100.out2
+shifts -qdb -noreslib  Coords005200
+shifts -noreslib '::H' Coords005200 > Coords005200.out2
+shifts -qdb -noreslib  Coords005300
+shifts -noreslib '::H' Coords005300 > Coords005300.out2
+shifts -qdb -noreslib  Coords005400
+shifts -noreslib '::H' Coords005400 > Coords005400.out2
+shifts -qdb -noreslib  Coords005500
+shifts -noreslib '::H' Coords005500 > Coords005500.out2
+shifts -qdb -noreslib  Coords005600
+shifts -noreslib '::H' Coords005600 > Coords005600.out2
+shifts -qdb -noreslib  Coords005700
+shifts -noreslib '::H' Coords005700 > Coords005700.out2
+shifts -qdb -noreslib  Coords005800
+shifts -noreslib '::H' Coords005800 > Coords005800.out2
+shifts -qdb -noreslib  Coords005900
+shifts -noreslib '::H' Coords005900 > Coords005900.out2
+shifts -qdb -noreslib  Coords006000
+shifts -noreslib '::H' Coords006000 > Coords006000.out2
+shifts -qdb -noreslib  Coords006100
+shifts -noreslib '::H' Coords006100 > Coords006100.out2
+shifts -qdb -noreslib  Coords006200
+shifts -noreslib '::H' Coords006200 > Coords006200.out2
+shifts -qdb -noreslib  Coords006300
+shifts -noreslib '::H' Coords006300 > Coords006300.out2
+shifts -qdb -noreslib  Coords006400
+shifts -noreslib '::H' Coords006400 > Coords006400.out2
+shifts -qdb -noreslib  Coords006500
+shifts -noreslib '::H' Coords006500 > Coords006500.out2
+shifts -qdb -noreslib  Coords006600
+shifts -noreslib '::H' Coords006600 > Coords006600.out2
+shifts -qdb -noreslib  Coords006700
+shifts -noreslib '::H' Coords006700 > Coords006700.out2
+shifts -qdb -noreslib  Coords006800
+shifts -noreslib '::H' Coords006800 > Coords006800.out2
+shifts -qdb -noreslib  Coords006900
+shifts -noreslib '::H' Coords006900 > Coords006900.out2
+shifts -qdb -noreslib  Coords007000
+shifts -noreslib '::H' Coords007000 > Coords007000.out2
+shifts -qdb -noreslib  Coords007100
+shifts -noreslib '::H' Coords007100 > Coords007100.out2
+shifts -qdb -noreslib  Coords007200
+shifts -noreslib '::H' Coords007200 > Coords007200.out2
+shifts -qdb -noreslib  Coords007300
+shifts -noreslib '::H' Coords007300 > Coords007300.out2
+shifts -qdb -noreslib  Coords007400
+shifts -noreslib '::H' Coords007400 > Coords007400.out2
+shifts -qdb -noreslib  Coords007500
+shifts -noreslib '::H' Coords007500 > Coords007500.out2
+shifts -qdb -noreslib  Coords007600
+shifts -noreslib '::H' Coords007600 > Coords007600.out2
+shifts -qdb -noreslib  Coords007700
+shifts -noreslib '::H' Coords007700 > Coords007700.out2
+shifts -qdb -noreslib  Coords007800
+shifts -noreslib '::H' Coords007800 > Coords007800.out2
+shifts -qdb -noreslib  Coords007900
+shifts -noreslib '::H' Coords007900 > Coords007900.out2
+shifts -qdb -noreslib  Coords008000
+shifts -noreslib '::H' Coords008000 > Coords008000.out2
+shifts -qdb -noreslib  Coords008100
+shifts -noreslib '::H' Coords008100 > Coords008100.out2
+shifts -qdb -noreslib  Coords008200
+shifts -noreslib '::H' Coords008200 > Coords008200.out2
+shifts -qdb -noreslib  Coords008300
+shifts -noreslib '::H' Coords008300 > Coords008300.out2
+shifts -qdb -noreslib  Coords008400
+shifts -noreslib '::H' Coords008400 > Coords008400.out2
+shifts -qdb -noreslib  Coords008500
+shifts -noreslib '::H' Coords008500 > Coords008500.out2
+shifts -qdb -noreslib  Coords008600
+shifts -noreslib '::H' Coords008600 > Coords008600.out2
+shifts -qdb -noreslib  Coords008700
+shifts -noreslib '::H' Coords008700 > Coords008700.out2
+shifts -qdb -noreslib  Coords008800
+shifts -noreslib '::H' Coords008800 > Coords008800.out2
+shifts -qdb -noreslib  Coords008900
+shifts -noreslib '::H' Coords008900 > Coords008900.out2
+shifts -qdb -noreslib  Coords009000
+shifts -noreslib '::H' Coords009000 > Coords009000.out2
+shifts -qdb -noreslib  Coords009100
+shifts -noreslib '::H' Coords009100 > Coords009100.out2
+shifts -qdb -noreslib  Coords009200
+shifts -noreslib '::H' Coords009200 > Coords009200.out2
+shifts -qdb -noreslib  Coords009300
+shifts -noreslib '::H' Coords009300 > Coords009300.out2
+shifts -qdb -noreslib  Coords009400
+shifts -noreslib '::H' Coords009400 > Coords009400.out2
+shifts -qdb -noreslib  Coords009500
+shifts -noreslib '::H' Coords009500 > Coords009500.out2
+shifts -qdb -noreslib  Coords009600
+shifts -noreslib '::H' Coords009600 > Coords009600.out2
+shifts -qdb -noreslib  Coords009700
+shifts -noreslib '::H' Coords009700 > Coords009700.out2
+shifts -qdb -noreslib  Coords009800
+shifts -noreslib '::H' Coords009800 > Coords009800.out2
+shifts -qdb -noreslib  Coords009900
+shifts -noreslib '::H' Coords009900 > Coords009900.out2
+shifts -qdb -noreslib Coords010000
+shifts -noreslib '::H' Coords010000 > Coords010000.out2

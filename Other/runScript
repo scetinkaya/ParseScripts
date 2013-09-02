@@ -1,0 +1,8 @@
+parsePDBFile.ok 1H8C_REF
+enerateModelData(templaeModelData)
+stride 0h 1h8c_REf > 1h8c_ref.parsed.stride
+replacelabilityInfo
+shifts 1H*C_REF
+shiftx 1H8C_REF
+nohup matlab5.3 < runexample(2)
+nohup matlab5.3 < runexample(3)

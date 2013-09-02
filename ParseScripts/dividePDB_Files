@@ -1,0 +1,7 @@
+~/Mist/Scripts/dividePDBFile.pl Mode7.pdb 
+~/Mist/Scripts/dividePDBFile.pl Mode8.pdb 
+~/Mist/Scripts/dividePDBFile.pl Mode9.pdb 
+~/Mist/Scripts/dividePDBFile.pl Mode10.pdb 
+~/Mist/Scripts/dividePDBFile.pl Mode11.pdb 
+~/Mist/Scripts/dividePDBFile.pl Mode38.pdb 
+!!!~/Mist/Scripts/dividePDBFile.pl Mode7.8.bimodal.pdb 

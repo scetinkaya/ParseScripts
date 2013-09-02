@@ -1,0 +1,4 @@
+db  combinedScoringMatrix_4RDC_Matrices.txt ../WithNH_CH_RDCs/combinedScoringMatrix.txt
+
+diff BinaryDistances.txt ../WithNH_CH_RDCs/BinaryDistances.txt 
+diff NOE_List.txt ../WithNH_CH_RDCs/NOE_List.txt

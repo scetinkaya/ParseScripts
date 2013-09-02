@@ -1,0 +1,32 @@
+#!/bin/sh
+# convert protein sequence from three letter code to one letter code
+# Just write down your sequence to a ascii file with
+# three letter-words, upper or lower case
+# separated by a puntuation sign like comma, space, dash or
+# other. Avoid heading, comments or other information
+# Rogelio Rodríguez-Sotres, 24/09/2007 adapted from
+# Kuen-Phon Wu, 06/11/2004 version 0.3
+#
+# This program will ignore any other characters in stardar 20 Amino
+# acids, Either lowercases or uppercases can be process via this
+# program
+#
+# Just use as: ./seq1to3.sh [FILENAME] > [OUT_FILE]
+usage='Usage: seq3to1.sh [inputfile] > [OUTPUT]'
+
+if [ $# -lt 1 ] ; then
+echo ’¡È$usage’¡É
+exit 1
+fi
+
+#### NOTE: change ==== to the other direction of ’¡È>’¡É before running
+cat $1 | tr ’¡Æ[:punct:]’¡Æ ’¡Æ ’¡Æ | tr ’¡Æ[0-9]’¡Æ ’¡Æ ’¡Æ |tr ’¡Æ\n’¡Ç ’¡Æ ’¡Æ| tr ’¡Æ[A-Z]’¡Æ ’¡Æ[a-z]’¡Æ | \
+sed -e 's/[x|z|j|b| ]/ /g' \
+-e ’¡Çs/ ala / A /g’¡Ç -e ’¡Çs/ cys / C /g’¡Ç -e ’¡Çs/ asp / D /g’¡Ç \
+-e ’¡Çs/ glu / E /g’¡Ç -e ’¡Çs/ phe / F /g’¡Ç -e ’¡Çs/ gly / G /g’¡Ç \
+-e ’¡Çs/ his / H /g’¡Ç -e ’¡Çs/ ile / I /g’¡Ç -e ’¡Çs/ lys / K /g’¡Ç \
+-e ’¡Çs/ leu / L /g’¡Ç -e ’¡Çs/ met / M /g’¡Ç -e ’¡Çs/ pro / P /g’¡Ç \
+-e ’¡Çs/ arg / R /g’¡Ç -e ’¡Çs/ gln / Q /g’¡Ç -e ’¡Çs/ asn / N /g’¡Ç \
+-e ’¡Çs/ ser / S /g’¡Ç -e ’¡Çs/ thr / T /g’¡Ç -e ’¡Çs/ trp / W /g’¡Ç \
+-e ’¡Çs/ tyr / Y /g’¡Ç -e ’¡Çs/ val / V /g’¡Ç -e ’¡Çs/ //g’¡Ç
+
