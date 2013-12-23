@@ -1,13 +1,13 @@
 #!/usr/bin/perl -w
 
-#usage: ./parsePDBFile.pl filename 
+#usage: ./parseDSSPFile.pl filename 
 
-# given an input (PDB) file, parses it to read and write the H,N,HA and CA coords.
+# given an input (DSSP) file, parses it to write sse types.
 
 
 $inputFile         = shift;
+
 if ($inputFile =~ /(.*)\.dssp$/)
-#if ($inputFile =~ /(.*)\.coor$/)
 {
       $outputFile = $1.".parsedDSSP";
       print STDERR "check out $outputFile\n";
@@ -21,71 +21,51 @@ else
 open (FIN, $inputFile) || 
     die ("couldn't open $inputFile (should be the dssp file)");
 
-$start = 0;
-$end = 0;
-$temp = " ";
+$sseStartIndex = 0;
+$sseEndIndex   = 0;
+$lastSseType   = " ";
+
 while ($line = <FIN>)
 {
-
-    if (($line =~ /^[\s+\d+]/))
+    if (($line =~ /^\s+\d+\s+\d+\s+\w/))
     {
-	
 	&parseLine ($line);
     }
 }
 
-# the line contains the coordinate info, which will be printed.
+# the line contains the sse info, which will be printed.
 sub parseLine 
 {
     my $line           = shift;
-    if ($line =~ /^\s*\d+\s+(\d+)\s+\w\s+(\w)*/)
-#    if ($line =~ /^ATOM\s+\d+\s+(\S+)\s+(\S\S\S)[\+]*[\S\s]\s+(\-*\d+)\s+(\-*\d+\.\d+)\s+(\-*\d+\.\d+)\s+(\-*\d+\.\d+)/)
+    if ($line =~ /^\s+\d+\s+(\d+)\s+\w\s+(\w)/)
     {
-
 #	print STDERR "READ LINE = $line\n";
-	$RESIDUE                 = $1;
-	$STRUCTURE               = $2;
-
-#	$aaNumber              = $aaNumber - 78; #for 1CMZ
-
-#	print STDERR "substracted 78 from the AA number for 1CMZ.\n";
-    if ($temp ne $STRUCTURE)
-    {
-        if (&writeAtom($STRUCTURE))
-        {
-            if (($temp eq "H")||($temp eq "E")||($temp eq "G")||($temp eq "I"))
-            {
-                print FOUT "$start $end $temp\n";
-            }
-            $start = $RESIDUE;
-            $temp = $STRUCTURE;
-        }
-        unless (&writeAtom($STRUCTURE)) 
-        {
-            if (($temp eq "H")||($temp eq "E")||($temp eq "G")||($temp eq "I"))
-            {
-                print FOUT "$start $end $temp\n";
-            }
-            $temp = $STRUCTURE;
-        }
-    }
-    elsif ($temp eq $STRUCTURE)
-    {
-        $end = $RESIDUE;
-    }
+	$residueIndex                 = $1;
+	$sseType                      = $2;
+	
+	if ($lastSseType ne $sseType)
+	{
+	    if (&writeSse($lastSseType))
+	    {
+		print FOUT "$sseStartIndex $sseEndIndex $lastSseType\n";
+	    }
+	    $sseStartIndex = $residueIndex;
+	    $lastSseType   = $sseType;
+	}
+	else
+	{
+	    $sseEndIndex = $residueIndex;
+	}
     }
 }
 
 
-
-sub writeAtom
+#returns 1 if sseType is H, E, G or I.
+sub writeSse
 {
-    my $STRUCTURE = shift;
+    my $sseType = shift;
     my $retval   = 1;
-#   unless (($atomCode eq "H") || ($atomCode eq "N") || ($atomCode eq "CA") || ($atomCode eq "HA")) 
-#    unless (($atomCode eq "H"))# || ($atomCode eq "N"))
-#    unless (($atomCode eq "CA"))# || ($atomCode eq "N"))
-    unless (($STRUCTURE eq "H") || ($STRUCTURE eq "E") || ($STRUCTURE eq "G") || ($STRUCTURE eq "I"))
+    unless (($sseType eq "H") || ($sseType eq "E") || ($sseType eq "G") || ($sseType eq "I"))
     {
 	$retval = 0;
     }
