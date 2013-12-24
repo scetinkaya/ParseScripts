@@ -35,23 +35,18 @@ sub parseLine
 #      1   1 MET HA   H   4.20 0.03 1 
 
 
-#    if ($line =~ /^ATOM\s+\d+\s+(\S+)\s+(\S\S\S)\s+[\+]*[\S\s]\s+(\-*\d+)\s+(\-*\d+\.\d+)\s+(\-*\d+\.\d+)\s+(\-*\d+\.\d+)/)
-
-    
-
-    if ($line =~ /^\s*\d+\s+(\d+)\s+(\w\w\w)\s+(\w+)\s+\w\s+(\-*\d+\.\d+)/)
-#    if ($line =~ /^\s*\d+\s+(\-*\d+\.\d+)\s+\-*\d+\.\d+\s+(\w+)\s+(\d+)/)
+    if ($line =~ /^\s*(\d+)\s+(\-*\d+\.\d+)\s+\d+\.\d+\s+(\S+)\s+(\d+)/)
     {
 #	print STDERR "READ LINE = $line\n";
-	$aaIndex                = $1;
-	$aaName                 = $2;
-	$atomName               = $3;
-	$chemicalShift          = $4;
+	$atomNo                = $1;
+	$chemicalShift         = $2;
+	$atomName              = $3;
+	$aaIndex               = $4;
 
 	if ($atomName eq "N")
 	{
 #	    print STDOUT "$aaIndex $aaName $chemicalShift ";
-	    $aaNames[$aaIndex]         = $aaName;
+#	    $aaNames[$aaIndex]         = $aaName;
 	    $chemicalShiftsN[$aaIndex] = $chemicalShift;
 	    if ($aaIndex > $maxNumAAs)
 	    {
@@ -61,7 +56,7 @@ sub parseLine
 	elsif (($atomName eq "H") ||  ($atomName eq "HN"))
 	{
 #	    print STDOUT "$chemicalShift \n";
-	    $aaNames[$aaIndex]         = $aaName;
+#	    $aaNames[$aaIndex]         = $aaName;
 	    $chemicalShiftsH[$aaIndex] = $chemicalShift;
 	    if ($aaIndex > $maxNumAAs)
 	    {
@@ -96,7 +91,7 @@ sub initializeArrays()
 
     for ($i = 0; $i <= $maxNumAAs; $i++)
     {
-	push @aaNames,$emptyString;
+#	push @aaNames,$emptyString;
 	push @chemicalShiftsN,$negativeChemicalShift;
 	push @chemicalShiftsH,$negativeChemicalShift;
     }
