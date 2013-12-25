@@ -90,10 +90,10 @@ sub writeAtom
     my $retval   = 1;
     
 
-    unless (($atomCode eq "H") || ($atomCode eq "N") || ($atomCode eq "CA") || ($atomCode eq "HA")) 
+#   unless (($atomCode eq "H") || ($atomCode eq "N") || ($atomCode eq "CA") || ($atomCode eq "HA")) 
 #    unless (($atomCode eq "H"))# || ($atomCode eq "N"))
 #    unless (($atomCode eq "CA"))# || ($atomCode eq "N"))
-#    unless (($atomCode eq "H") || ($atomCode eq "H1"))
+    unless (($atomCode eq "H") || ($atomCode eq "H1"))
     {
 	$retval = 0;
     }
