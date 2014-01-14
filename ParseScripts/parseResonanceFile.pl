@@ -3,18 +3,18 @@
 #usage: ./parseResonanceFile.pl filename 
 
 # given a resonance file, parses it to read and write the H,N chemical shifts
-
+#currently adapted for LW_ubq.prot
 
 $inputFile         = shift;
 
 open (FIN, $inputFile) || 
     die ("couldn't open $inputFile");
 
-@aaNames         = ();
-@chemicalShiftsN = ();
-@chemicalShiftsH = ();
-$numAAs          =  0;
-$maxNumAAs       = 1000; #used in initializing the arrays
+@chemicalShiftsN  = ();
+@chemicalShiftsHN = ();
+@chemicalShiftsHA = ();
+$numAAs           =  0;
+$maxNumAAs        = 1000; #used in initializing the arrays
 
 &initializeArrays;
 
@@ -31,17 +31,17 @@ sub parseLine
     my $line           = shift;
 
 
-#I think this is supposed to match lines like:
-#      1   1 MET HA   H   4.20 0.03 1 
-
-
-    if ($line =~ /^\s*(\d+)\s+(\-*\d+\.\d+)\s+\d+\.\d+\s+(\S+)\s+(\d+)/)
+#    if ($line =~ /^\s*(\d+)\s+(\-*\d+\.\d+)\s+\d+\.\d+\s+(\S+)\s+(\d+)/)
+    if ($line =~ /^\s*\d+\s+(\d+)\s+(\S\S\S)\s+(\S+)\s+\S\s+(\-*\d+\.\d+)/)
     {
 #	print STDERR "READ LINE = $line\n";
-	$atomNo                = $1;
-	$chemicalShift         = $2;
+
+	$aaIndex               = $1;
 	$atomName              = $3;
-	$aaIndex               = $4;
+	$chemicalShift         = $4;
+
+#want to read lines of the form 
+#2    19    PRO    HA    H    4.12   0.01   1
 
 	if ($atomName eq "N")
 	{
@@ -57,7 +57,17 @@ sub parseLine
 	{
 #	    print STDOUT "$chemicalShift \n";
 #	    $aaNames[$aaIndex]         = $aaName;
-	    $chemicalShiftsH[$aaIndex] = $chemicalShift;
+	    $chemicalShiftsHN[$aaIndex] = $chemicalShift;
+	    if ($aaIndex > $maxNumAAs)
+	    {
+		die("numAAs=$numAAs is greater than maxNumAAs= $maxNumAAs");
+	    }
+	}
+	elsif ($atomName eq "HA")
+	{
+#	    print STDOUT "$chemicalShift \n";
+#	    $aaNames[$aaIndex]         = $aaName;
+	    $chemicalShiftsHA[$aaIndex] = $chemicalShift;
 	    if ($aaIndex > $maxNumAAs)
 	    {
 		die("numAAs=$numAAs is greater than maxNumAAs= $maxNumAAs");
@@ -76,9 +86,9 @@ sub printArrays
     my $i;
     for ($i = 0; $i <= $maxNumAAs; $i++)
     {
-	if (($chemicalShiftsN[$i] != -1) && ($chemicalShiftsH[$i] != -1))
+	if (($chemicalShiftsN[$i] != -1) && ($chemicalShiftsHN[$i] != -1) && ($chemicalShiftsHA[$i] != -1) )
 	{
-	    print STDOUT "$i $chemicalShiftsN[$i] $chemicalShiftsH[$i]\n";
+	    print STDOUT "$i $chemicalShiftsN[$i] $chemicalShiftsHN[$i] $chemicalShiftsHA[$i]\n";
 	}
     }
 }
@@ -93,6 +103,7 @@ sub initializeArrays()
     {
 #	push @aaNames,$emptyString;
 	push @chemicalShiftsN,$negativeChemicalShift;
-	push @chemicalShiftsH,$negativeChemicalShift;
+	push @chemicalShiftsHN,$negativeChemicalShift;
+	push @chemicalShiftsHA,$negativeChemicalShift;
     }
 }
