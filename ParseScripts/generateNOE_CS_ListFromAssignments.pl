@@ -1,15 +1,15 @@
 #!/usr/bin/perl -w
 
-#usage: ./generateNOE_CS_ListFromAssignments.pl noeFilename
+#usage: ./generateNOE_CS_ListFromAssignments.pl 
 
-#obtained from parseNOE_File2.pl
+#obtained and modified from parseNOE_File2.pl and parseResonanceFile.pl
 #given an NOE file, simply extracts the indices of the residues which have an NOE between them.
 #and then finds the corresponding chemical shift values and prints them.
 #e.g., if the NOE is between residue 2 HN and resdue 63 HA, it will print the chemical shift values
 #of residues 2 HN, residue 2 N, and residue 63 HA.
 
 $chemicalShiftListFilename = "chemicalShiftList.txt";
-$noeFilename               = shift;
+$noeFilename               = "NOE_Source.txt";
 
 open (FIN_NOE, $noeFilename)                   || die("couldn't open $noeFilename");
 open (FIN_CS_LIST, $chemicalShiftListFilename) || die("couldn't open $chemicalShiftListFilename");
@@ -41,6 +41,10 @@ while ($line = <FIN_CS_LIST>)
 	    die("numAAs=$numAAs is greater than maxNumAAs= $maxNumAAs");
 	}
     }
+    else
+    {
+	die("line = $line does not match format.\n");
+    }
 }
 
 while ($line = <FIN_NOE>)
@@ -50,23 +54,23 @@ while ($line = <FIN_NOE>)
     {
 	$aa1Index  = $1;
 	$aa2Index  = $2;
-	#printf STDOUT "%d %d\n", $aa1Index,$aa2Index;
-	printf STDOUT "%f %f %f\n", $chemicalShiftN[$aa1Index],$chemicalShiftHN[$aa1Index], $chemicalShiftHN[$aa2Index];
-	printf STDOUT "%f %f %f\n", $chemicalShiftN[$aa2Index],$chemicalShiftHN[$aa2Index], $chemicalShiftHN[$aa1Index];
+	printf STDOUT "%d %d\n", $aa1Index,$aa2Index;
+	printf STDOUT "%f %f %f\n", $chemicalShiftsN[$aa1Index],$chemicalShiftsHN[$aa1Index], $chemicalShiftsHN[$aa2Index];
+	printf STDOUT "%f %f %f\n", $chemicalShiftsN[$aa2Index],$chemicalShiftsHN[$aa2Index], $chemicalShiftsHN[$aa1Index];
     }
     elsif  ($line =~ /resid\s+(\d+).+HA.+resid\s+(\d+).+HN/) 
     {
 	$aa1Index  = $1;
 	$aa2Index  = $2;
-	#printf STDOUT "%d %d\n", $aa1Index,$aa2Index;
-	printf STDOUT "%f %f %f\n", $chemicalShiftN[$aa2Index],$chemicalShiftHN[$aa2Index], $chemicalShiftHA[$aa1Index];
+	printf STDOUT "%d %d\n", $aa1Index,$aa2Index;
+	printf STDOUT "%f %f %f\n", $chemicalShiftsN[$aa2Index],$chemicalShiftsHN[$aa2Index], $chemicalShiftsHA[$aa1Index];
     }
     elsif  ($line =~ /resid\s+(\d+).+HN.+resid\s+(\d+).+HA/) 
     {
 	$aa1Index  = $1;
 	$aa2Index  = $2;
-	#printf STDOUT "%d %d\n", $aa1Index,$aa2Index;
-	printf STDOUT "%f %f %f\n", $chemicalShiftN[$aa1Index],$chemicalShiftHN[$aa1Index], $chemicalShiftHA[$aa2Index];
+	printf STDOUT "%d %d\n", $aa1Index,$aa2Index;
+	printf STDOUT "%f %f %f\n", $chemicalShiftsN[$aa1Index],$chemicalShiftsHN[$aa1Index], $chemicalShiftsHA[$aa2Index];
     } 
     elsif  ($line =~ /resid\s+(\d+).+HA.+resid\s+(\d+).+HA/) 
     {
