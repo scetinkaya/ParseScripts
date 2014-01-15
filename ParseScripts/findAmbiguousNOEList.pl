@@ -47,7 +47,6 @@ while ($line = <FIN_CS_LIST>)
 }
 
 $numAAs = $aaIndex;
-print STDOUT "read $numAAs amino acids.\n";
 
 while ($line = <FIN_NOE>)
 {
@@ -57,12 +56,11 @@ while ($line = <FIN_NOE>)
 	$N_CS   = $1;
 	$HN_CS  = $2;
 	$H3_CS  = $3;
-#	Printf STDOUT "%d %d\n", $aa1Index,$aa2Index;
 	&printCloseResidueIndices($N_CS, $HN_CS, $H3_CS);
     }
     else
     {
-	die("$line does not match the format\n";
+	die("$line does not match the format\n");
     }
 }
 
@@ -90,8 +88,9 @@ sub  findCloseHN_Pairs
 
     for ($i = 0; $i < $numAAs; $i++)
     {
-	if ((abs($N_CS-$chemicalShiftsN[$i])< $N_EPSILON) && (abs($H_CS - $chemicalShiftsH[$i]) < $H_EPSILON))
+	if ((abs($N_CS-$chemicalShiftsN[$i])< $N_EPSILON) && (abs($HN_CS - $chemicalShiftsHN[$i]) < $H_EPSILON))
 	{
+	    #print STDOUT "$i th atom is close to the n or hn cs value\n";
 	    push (@retval, $i);
 	}
     }
@@ -107,8 +106,9 @@ sub findCloseH_Atoms
 
     for ($i = 0; $i < $numAAs; $i++)
     {
-	if ((abs($H3_CS-$chemicalShiftsH[$i])< $H_EPSILON) || (abs($H3_CS - $chemicalShiftsHA[$i]) < $H_EPSILON))
+	if ((abs($H3_CS-$chemicalShiftsHN[$i])< $H_EPSILON) || (abs($H3_CS - $chemicalShiftsHA[$i]) < $H_EPSILON))
 	{
+	    #print STDOUT "$i th atom is close to the h3 cs value\n";
 	    push (@retval, $i);
 	}
     }
@@ -118,12 +118,13 @@ sub findCloseH_Atoms
 
 sub printCloseResidueIndices
 {
-    my $i, $j;
+    my ($i, $j);
     my $N_CS  = shift;
     my $HN_CS = shift;
     my $H3_CS = shift;
-    @closeHN_Pairs = findCloseHN_Pairs($N_CS, $HN_CS);
-    @closeH3_Atoms = findCloseH_Atoms ($H3_CS);
+
+    @closeHN_Pairs = &findCloseHN_Pairs($N_CS, $HN_CS);
+    @closeH3_Atoms = &findCloseH_Atoms ($H3_CS);
 
 #    for each element in close hn pairs
 #      for each element in close h3 atoms
