@@ -54,23 +54,35 @@ while ($line = <FIN_NOE>)
     {
 	$aa1Index  = $1;
 	$aa2Index  = $2;
-	printf STDOUT "%d %d\n", $aa1Index,$aa2Index;
-	printf STDOUT "%f %f %f\n", $chemicalShiftsN[$aa1Index],$chemicalShiftsHN[$aa1Index], $chemicalShiftsHN[$aa2Index];
-	printf STDOUT "%f %f %f\n", $chemicalShiftsN[$aa2Index],$chemicalShiftsHN[$aa2Index], $chemicalShiftsHN[$aa1Index];
+#	printf STDOUT "%d %d\n", $aa1Index,$aa2Index;
+	if (($chemicalShiftsN[$aa1Index]>0) && ($chemicalShiftsHN[$aa1Index]>0) && ($chemicalShiftsHN[$aa2Index]>0))
+	{
+	    printf STDOUT "%f %f %f\n", $chemicalShiftsN[$aa1Index],$chemicalShiftsHN[$aa1Index], $chemicalShiftsHN[$aa2Index];
+	}
+	if (($chemicalShiftsN[$aa2Index]>0) && ($chemicalShiftsHN[$aa2Index]>0) && ($chemicalShiftsHN[$aa1Index]>0))
+	{
+	    printf STDOUT "%f %f %f\n", $chemicalShiftsN[$aa2Index],$chemicalShiftsHN[$aa2Index], $chemicalShiftsHN[$aa1Index];
+	}
     }
     elsif  ($line =~ /resid\s+(\d+).+HA.+resid\s+(\d+).+HN/) 
     {
 	$aa1Index  = $1;
 	$aa2Index  = $2;
-	printf STDOUT "%d %d\n", $aa1Index,$aa2Index;
-	printf STDOUT "%f %f %f\n", $chemicalShiftsN[$aa2Index],$chemicalShiftsHN[$aa2Index], $chemicalShiftsHA[$aa1Index];
+#	printf STDOUT "%d %d\n", $aa1Index,$aa2Index;
+	if (($chemicalShiftsN[$aa2Index]>0) && ($chemicalShiftsHN[$aa2Index]>0) && ($chemicalShiftsHA[$aa1Index]>0))
+	{
+	    printf STDOUT "%f %f %f\n", $chemicalShiftsN[$aa2Index],$chemicalShiftsHN[$aa2Index], $chemicalShiftsHA[$aa1Index];
+	}
     }
     elsif  ($line =~ /resid\s+(\d+).+HN.+resid\s+(\d+).+HA/) 
     {
 	$aa1Index  = $1;
 	$aa2Index  = $2;
-	printf STDOUT "%d %d\n", $aa1Index,$aa2Index;
-	printf STDOUT "%f %f %f\n", $chemicalShiftsN[$aa1Index],$chemicalShiftsHN[$aa1Index], $chemicalShiftsHA[$aa2Index];
+#	printf STDOUT "%d %d\n", $aa1Index,$aa2Index;
+	if (($chemicalShiftsN[$aa1Index]>0) && ($chemicalShiftsHN[$aa1Index]>0) && ($chemicalShiftsHA[$aa2Index]>0))
+	{
+	    printf STDOUT "%f %f %f\n", $chemicalShiftsN[$aa1Index],$chemicalShiftsHN[$aa1Index], $chemicalShiftsHA[$aa2Index];
+	}
     } 
     elsif  ($line =~ /resid\s+(\d+).+HA.+resid\s+(\d+).+HA/) 
     {
